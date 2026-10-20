@@ -4,23 +4,23 @@ import yt_dlp
 
 # Secure bot intents
 intents = discord.Intents.default()
-intents.message_contents = True
+intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 # yt_dlp configuration for audio extraction
 YDL_OPTIONS = {
     'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
+    'noplaylist': True,
+    'extract_flat': False,
+    'js_runtimes': {
+        'node': {},
+    },
 }
 
 FFMPEG_OPTIONS = {
-    'before_options': '-reconnect 1 - reconnect_streamd 1 - reconnect_delay_max 5',
-    'options': '-vn',
+    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+    'options': '-vn -f s16le -ar 48000 -ac 2',
 }
 
 @bot.event
@@ -54,5 +54,5 @@ async def play(ctx, url: str):
     await ctx.send(f"Now Playing: {info.get('title', 'Audio')}")
 
 # Run the bot with your token
-# bot.run("YOUR_BOT_TOKEN")
+bot.run("YOUR_BOT_TOKEN")
 
