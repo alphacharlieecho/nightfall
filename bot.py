@@ -27,7 +27,7 @@ FFMPEG_OPTIONS = {
 # 3. Global Queue and Loop Storage
 # Format: { guild_id: {"songs": [list_of_urls], "loop": False, "current": {"url": str, "title": str}} }
 queues = {}
-TIMEOUT_DURATION = 30  # 30 seconds disconnect timeout
+TIMEOUT_DURATION = 300  # 5 minute  disconnect timeout
 
 def get_guild_data(guild_id):
     if guild_id not in queues:
